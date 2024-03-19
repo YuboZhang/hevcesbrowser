@@ -11,7 +11,6 @@ using namespace HEVC;
 void HEVCInfoSimpleWriter::write(std::ostream &out)
 {
   std::cout << "Syntax elements (count = " << m_nalus.size() << "):" << std::endl;
-  std::cout << "sliceType: SLICE_B = 0; SLICE_P = 1; SLICE_I = 2;" << std::endl;
   std::cout << "write output to csv file..." << std::endl;
   out << "offset(hex),length(dec),NALUnitType,sliceType,cnt" << std::endl;
   for(std::size_t i=0; i<m_nalus.size(); i++)
@@ -431,7 +430,23 @@ void HEVCInfoSimpleWriter::writeSlice(std::shared_ptr<HEVC::Slice> pSlice, std::
     }
     out << "} "; */
 
-    out << pSlice -> slice_type << ",";//slice_type
+    //out << pSlice -> slice_type << ",";//slice_type
+    switch (pSlice -> slice_type)
+    {
+    case 0://SLICE_B
+      out << "B";
+      break;
+    case 1://SLICE_P
+      out << "P";
+      break;
+    case 2://SLICE_I
+      out << "I";
+      break;
+    default:
+      out << "";
+      break;
+    }
+    out << ",";
     //out << "slice_type: " << pSlice -> slice_type << " ";
 
     /* if(pPPS -> output_flag_present_flag)
