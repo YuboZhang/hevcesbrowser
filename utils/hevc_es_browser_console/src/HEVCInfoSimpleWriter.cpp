@@ -10,14 +10,14 @@ using namespace HEVC;
 
 void HEVCInfoSimpleWriter::write(std::ostream &out)
 {
-  out << "Syntax elements (count = " << m_nalus.size() << "):" << std::endl;
-  out << "sliceType: SLICE_B = 0; SLICE_P = 1; SLICE_I = 2;" << std::endl;
-  out << "csv output:" << std::endl;
-  out << "offset,length,NALUnitType,sliceType,cnt" << std::endl;
+  std::cout << "Syntax elements (count = " << m_nalus.size() << "):" << std::endl;
+  std::cout << "sliceType: SLICE_B = 0; SLICE_P = 1; SLICE_I = 2;" << std::endl;
+  std::cout << "write output to csv file..." << std::endl;
+  out << "offset(hex),length(dec),NALUnitType,sliceType,cnt" << std::endl;
   for(std::size_t i=0; i<m_nalus.size(); i++)
   {
     //writeNALHeader(m_nalus[i], out);
-    out << std::hex << "0x" << m_nalus[i].m_info.m_position << std::dec << ",";
+    out << std::hex << m_nalus[i].m_info.m_position << std::dec << ",";
     if (i == m_nalus.size() - 1)//length
     {
       out << size - m_nalus[i].m_info.m_position <<",";
