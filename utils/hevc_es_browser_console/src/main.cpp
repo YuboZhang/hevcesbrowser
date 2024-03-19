@@ -7,6 +7,7 @@
 
 #include "HEVCInfoWriter.h"
 #include "HEVCInfoAltWriter.h"
+#include "HEVCInfoSimpleWriter.h"
 
 
 int main(int argc, char **argv)
@@ -18,6 +19,7 @@ int main(int argc, char **argv)
     desc.add_options()
       ("help", "produce help message")
       ("altwriter", "user alternative writer")
+      ("simplewriter", "user simple writer")
       ("input,i", po::value<std::string>(), "path to in file")
       ("output,o", po::value<std::string>(), "path to out file")
     ;
@@ -76,6 +78,8 @@ int main(int argc, char **argv)
     HEVCInfoWriter* writer = nullptr;
     if (vm.count("altwriter"))
         writer = new HEVCInfoAltWriter();
+    else if (vm.count("simplewriter"))
+      writer = new HEVCInfoSimpleWriter();
     else
         writer = new HEVCInfoWriter();
     pparser -> addConsumer(writer);
@@ -87,6 +91,7 @@ int main(int argc, char **argv)
 
     *pout << vm["input"].as<std::string>() << std::endl;
     *pout << "=======================" << std::endl;
+    writer->size = size;
     writer->write(*pout);
     delete writer;
   }
