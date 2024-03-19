@@ -89,8 +89,9 @@ int main(int argc, char **argv)
     HEVC::Parser::release(pparser);
     delete [] pdata;
 
-    *pout << vm["input"].as<std::string>() << std::endl;
-    *pout << "=======================" << std::endl;
+    std::cout << "input:" << vm["input"].as<std::string>() << std::endl;
+    std::cout << "output:" << vm["output"].as<std::string>() << std::endl;
+    std::cout << "=======================" << std::endl;
     writer->size = size;
     writer->write(*pout);
     delete writer;
