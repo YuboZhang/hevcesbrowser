@@ -12,11 +12,11 @@ void HEVCInfoSimpleWriter::write(std::ostream &out)
 {
   std::cout << "Syntax elements (count = " << m_nalus.size() << "):" << std::endl;
   std::cout << "write output to csv file..." << std::endl;
-  out << "offset(hex),length(dec),NALUnitType,sliceType,slice_pic_order_cnt_lsb" << std::endl;
+  out << "offset,length,NALUnitType,sliceType,slice_pic_order_cnt_lsb" << std::endl;
   for(std::size_t i=0; i<m_nalus.size(); i++)
   {
     //writeNALHeader(m_nalus[i], out);
-    out << std::hex << m_nalus[i].m_info.m_position << std::dec << ",";
+    out << m_nalus[i].m_info.m_position << ",";
     if (i == m_nalus.size() - 1)//length
     {
       out << size - m_nalus[i].m_info.m_position <<",";
