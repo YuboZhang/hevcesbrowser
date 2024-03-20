@@ -12,7 +12,7 @@ void HEVCInfoSimpleWriter::write(std::ostream &out)
 {
   std::cout << "Syntax elements (count = " << m_nalus.size() << "):" << std::endl;
   std::cout << "write output to csv file..." << std::endl;
-  out << "offset(hex),length(dec),NALUnitType,sliceType,cnt" << std::endl;
+  out << "offset(hex),length(dec),NALUnitType,sliceType,slice_pic_order_cnt_lsb" << std::endl;
   for(std::size_t i=0; i<m_nalus.size(); i++)
   {
     //writeNALHeader(m_nalus[i], out);
@@ -25,10 +25,12 @@ void HEVCInfoSimpleWriter::write(std::ostream &out)
     }
     //NALUnitType
     out << ConvToString::NALUnitType(m_nalus[i].m_pNALUnit -> m_nalHeader.type) << ",";
+    //非IPB帧（包括IDR帧）的slice_type和cnt均为空
     if (m_nalus[i].m_pNALUnit -> m_nalHeader.type != NAL_TRAIL_R 
     && m_nalus[i].m_pNALUnit -> m_nalHeader.type != NAL_TRAIL_N
     && m_nalus[i].m_pNALUnit -> m_nalHeader.type != NAL_IDR_W_RADL 
-    && m_nalus[i].m_pNALUnit -> m_nalHeader.type != NAL_CRA_NUT)
+    && m_nalus[i].m_pNALUnit -> m_nalHeader.type != NAL_CRA_NUT
+    && m_nalus[i].m_pNALUnit -> m_nalHeader.type != NAL_IDR_N_LP)
     {
       out << ",";
     }
