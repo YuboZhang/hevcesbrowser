@@ -28,6 +28,8 @@ void HEVCInfoSimpleWriter::write(std::ostream &out)
     //非IPB帧（包括IDR帧）的slice_type和cnt均为空
     if (m_nalus[i].m_pNALUnit -> m_nalHeader.type != NAL_TRAIL_R 
     && m_nalus[i].m_pNALUnit -> m_nalHeader.type != NAL_TRAIL_N
+    && m_nalus[i].m_pNALUnit -> m_nalHeader.type != NAL_RASL_R 
+    && m_nalus[i].m_pNALUnit -> m_nalHeader.type != NAL_RASL_N
     && m_nalus[i].m_pNALUnit -> m_nalHeader.type != NAL_IDR_W_RADL 
     && m_nalus[i].m_pNALUnit -> m_nalHeader.type != NAL_CRA_NUT
     && m_nalus[i].m_pNALUnit -> m_nalHeader.type != NAL_IDR_N_LP)
