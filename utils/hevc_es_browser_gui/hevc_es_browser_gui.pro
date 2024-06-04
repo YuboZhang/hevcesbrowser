@@ -9,6 +9,7 @@ MOC_DIR = ../../build/qt
 OBJECTS_DIR = ../../build/qt
 
 CONFIG += c++11
+CONFIG += debug
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
